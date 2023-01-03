@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+            integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<ul class="nav nav-tabs justify-content-end">
+    <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="/hotelsearch">Hotel Search</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="/reviewscrud">Add/Update Reviews</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/expediahistory">Expedia Visit History</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/favoritehotels">Favorite Hotels</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/signout">Sign Out</a>
+    </li>
+    #if($lastLoginDate != "N/A")
+    <li class="nav-item">
+        <a class="nav-link disabled">Last Login: $lastLoginDate</a>
+    </li>
+    #end
+</ul>
+</br>
+<div class="container">
+    <div class="col-md-12 text-center">
+        <button type="button" class="btn btn-primary" onclick="location.href='/addreview'">Add Review</button>
+    </div>
+</div>
+
+<table class="table">
+    #if($reviews != "")
+    <thead>
+    <tr>
+        <th scope="col">Hotel Id</th>
+        <th scope="col">Review title</th>
+        <th scope="col">Review text</th>
+        <th scope="col">Review submission time</th>
+        <th scope="col">Rating</th>
+        <th scope="col">Username</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    #foreach($review in $reviews)
+    <tr>
+        <th scope="row">$review.getHotelId()</th>
+        <td>$review.getTitle()</td>
+        <td>$review.getReviewText()</td>
+        <td>$review.getReviewSubmissionTime()</td>
+        <td>$review.getRatingOverall()</td>
+        <td>$review.getUserNickname()</td>
+        <td>
+            <button type="button" class="btn btn-warning"
+                    onclick="location.href='/editreview?reviewid=$review.getReviewId()'">Edit
+            </button>
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger"
+                    onclick="location.href='/deletereview?reviewid=$review.getReviewId()'">Delete
+            </button>
+        </td>
+    </tr>
+    #end
+    #else
+    <tr>
+        <td>No reviews found.</td>
+    </tr>
+    </tbody>
+    #end
+</table>
+</body>
+</html>

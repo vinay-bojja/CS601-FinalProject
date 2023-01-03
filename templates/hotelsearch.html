@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+            integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+            integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<ul class="nav nav-tabs justify-content-end">
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="/hotelsearch">Hotel Search</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/reviewscrud">Add/Update Reviews</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/expediahistory">Expedia Visit History</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/favoritehotels">Favorite Hotels</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/signout">Sign Out</a>
+    </li>
+    #if($lastLoginDate != "N/A")
+    <li class="nav-item">
+        <a class="nav-link disabled">Last Login: $lastLoginDate</a>
+    </li>
+    #end
+</ul>
+</br>
+<div>
+    <form class="d-flex" role="search" method="post" action=$postServlet>
+        <input class="form-control me-2" type="search" name="keyword" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+</div>
+<div>
+    <p id="hotels"></p>
+</div>
+<div>
+    #if($hotels != "")
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Hotel Name</th>
+        </tr>
+        </thead>
+        #foreach($hotel in $hotels)
+        <tbody>
+        <tr>
+            <td><a href="/hotelinfo?hotelId=$hotel.getHotelId()">$hotel.getHotelName()</a></td>
+        </tr>
+        #end
+        </tbody>
+    </table>
+    #else
+    <h5>No hotel found.</h5>
+    #end
+</div>
+
+</body>
+</html>
